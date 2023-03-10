@@ -544,14 +544,6 @@ class DLLOPT Snmp: public SnmpSynchronized
 
   EventListHolder *get_eventListHolder() { return eventListHolder; };
 
-  /**
-  * Get statistic about bytes count.
-  *
-  */
-  static size_t get_bytes_out();
-  static size_t get_retry_bytes_out();
-  static size_t get_bytes_in();
-
 protected:
 
   /**
@@ -669,18 +661,6 @@ private:
   pthread_t m_hThread;
 #endif
 #endif
-  friend int receive_snmp_notification(SnmpSocket sock, Snmp &snmp_session,
-    Pdu &pdu, SnmpTarget **target);
-  friend int receive_snmp_response(SnmpSocket sock, Snmp &snmp_session,
-    Pdu &pdu, UdpAddress &fromaddress,
-    OctetStr &engine_id, bool process_msg);
-  friend DLLOPT int send_snmp_request(SnmpSocket sock, unsigned char *send_buf,
-    size_t send_len, const Address & address, bool retry = false);
-  friend void add_bytes_out(bool retry, size_t bytes_out);
-
-  static size_t bytes_in;
-  static size_t bytes_out;
-  static size_t retry_bytes_out;
 };
 
 #ifdef SNMP_PP_NAMESPACE
