@@ -30,10 +30,6 @@
 #define _SNMP_REENTRANT_H_
 
 #include <libsnmp.h>
-#include <memory>
-
-#include <memory>
-
 #include "snmp_pp/config_snmp_pp.h"
 #include "snmp_pp/smi.h"
 
@@ -79,7 +75,6 @@ class DLLOPT SnmpSynchronize {
   SnmpSynchronized& s;
 
 };
-
 
 #define REENTRANT(x) { SnmpSynchronize _synchronize(*this); x }
 

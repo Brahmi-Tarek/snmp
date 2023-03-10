@@ -70,7 +70,7 @@ static const char *loggerModuleName = "snmp++.msgqueue";
 
 //--------[ externs ]---------------------------------------------------
 extern int send_snmp_request(SnmpSocket sock, unsigned char *send_buf,
-                             size_t send_len, const Address &address,bool);
+                             size_t send_len, const Address &address);
 extern int receive_snmp_response(SnmpSocket sock, Snmp &snmp_session,
                                  Pdu &pdu, UdpAddress &fromaddress,
                                  OctetStr &engine_id, bool process_msg = true);
@@ -227,10 +227,10 @@ int CSNMPMessage::ResendMessage()
 
     return SNMP_CLASS_TIMEOUT;
   }
-  m_all_retry_cnt++;
+
   m_target->set_retry(m_target->get_retry() - 1);
   SetSendTime();
-  int status = send_snmp_request(m_socket, m_rawPdu, m_rawPduLen, *m_address, true);
+  int status = send_snmp_request(m_socket, m_rawPdu, m_rawPduLen, *m_address);
   if (status != 0)
     return SNMP_CLASS_TL_FAILED;
 
@@ -250,17 +250,6 @@ int CSNMPMessage::Callback(const int reason)
   }
   return 1;
 }
-
-
-size_t Snmp_pp::CSNMPMessage::get_retry_cnt()
-{
-  size_t ret = 0;
-  std::swap(m_all_retry_cnt, ret);
-
-  return ret;
-}
-
-size_t CSNMPMessage::m_all_retry_cnt = 0;
 
 //----[ CSNMPMessageQueueElt class ]--------------------------------------
 

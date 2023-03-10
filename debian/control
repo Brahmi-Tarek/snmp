@@ -1,0 +1,17 @@
+Source: snmp++
+Priority: optional
+Maintainer: Jean-Luc Tresset <jean-luc.tresset@luceor.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Section: libs
+Homepage: http://www.agentpp.com/snmp_pp3_x/snmp_pp3_x.html
+
+Package: libsnmp++-static-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SNMP++v3.x is a C++ API supporting SNMP v1, v2c and v3.
+  SNMP++v3.x is based on SNMP++v2.8 from HP* and extends it by support
+  for SNMPv3 and a couple of bug fixes. SNMP++v3.x is a C++ API which
+  supports SNMP v1, v2c, and v3.

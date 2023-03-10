@@ -1,0 +1,48 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+VERSION=3.3.9
+OPENSSL_VERSION?=1.0.2i
+
+DEB_HOST_ARCH := $(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+export CFLAGS=-fPIC
+export CXXFLAGS=-fPIC
+
+ifeq ($(DEB_HOST_ARCH),i386)
+  export CFLAGS=-m32 -fPIC
+  export CXXFLAGS=-m32 -fPIC
+  export LDFLAGS=-m32
+endif
+
+OPENSSL=/usr/local/openssl-$(DEB_HOST_ARCH)-$(OPENSSL_VERSION)
+
+# It seems that OpenSSL detection is not working in the configure
+# script, so we try to do it here.
+
+export PKG_CONFIG_PATH=$(OPENSSL)/lib/pkgconfig
+export ssl_CFLAGS=$(shell pkg-config openssl --cflags)
+export ssl_LIBS=$(shell pkg-config openssl --libs --static)
+
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	echo $(ssl_CFLAGS)
+	echo $(ssl_LIBS)
+	dh_auto_configure -- \
+	  --prefix=/usr/local/snmp++-$(DEB_HOST_ARCH)-$(VERSION) \
+	  --disable-shared --enable-static --enable-threads --with-ssl \
+	  --disable-logging
+
+# dh_update_autotools_config update config.guess and config.sub. We do
+# not want to change the source code, so disable it.
+override_dh_update_autotools_config:
+
+# According to debian, we are not supposed to install files into /usr/local
+# and if we do, the build process fails. So skip this check.
+override_dh_usrlocal:

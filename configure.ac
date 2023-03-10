@@ -165,6 +165,7 @@ AS_IF([test "x${ENABLE_THREADS}" = "xyes"], [
         AC_DEFINE([ENABLE_THREADS], 1,
             [Define if you want the thread support compiled in.])
         ac_cv_enable_threads=yes
+        WITH_PTHREAD=0
         WITH_THREADS=1
     ],
     [

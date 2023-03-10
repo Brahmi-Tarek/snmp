@@ -604,7 +604,7 @@ int IpAddress::parse_coloned_ipstring(const char *inaddr)
 
   {
       int scope_pos;
-      for (int i=(int)strlen(temp)-1; i >=0 ; i--)
+      for (int i=strlen(temp)-1; i >=0 ; i--)
       {
           if (temp[i] == '%')
           {
@@ -866,32 +866,17 @@ bool IpAddress::parse_address(const char *inaddr)
   }
   else
   {
-#if SNMP_PP_IPv6
-    if (res->ai_family == AF_INET6)
+    // inaddr has been successfully parsed.
+
+    if (getnameinfo(res->ai_addr, res->ai_addrlen, ds, sizeof(ds)-1,
+		    NULL, 0, NI_NUMERICHOST) != 0)
     {
-      if (!inet_ntop(AF_INET6,
-          &((struct sockaddr_in6 *)(res->ai_addr))->sin6_addr,
-          ds, sizeof(ds)-1))
-      {
-        freeaddrinfo(res);
-        return false;
-      }
-    }
-    else
-#endif
-    if (res->ai_family == AF_INET)
-    {
-      // now lets check out the coloned string
-      if (!inet_ntop(AF_INET,
-          &((struct sockaddr_in *)(res->ai_addr))->sin_addr,
-          ds, sizeof(ds)-1))
-      {
-        freeaddrinfo(res);
-        return false;
-      }
+      freeaddrinfo(res);
+      return false;
     }
 
-    debugprintf(4, "from inet_ntop: %s", ds);
+    debugprintf(4, "from getnameinfo: %s", ds);
+
     if (
 #if SNMP_PP_IPv6
        (res->ai_family == AF_INET6 && !parse_coloned_ipstring(ds)) ||
@@ -1173,10 +1158,18 @@ int IpAddress::addr_to_friendly()
             }
     }
 
+    struct addrinfo hints, *res;
     in6_addr ipAddr;
 
-    if (inet_pton(AF_INET6, (char*)ds, &ipAddr) <= 0)
-      return -1; // bad address
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET6;
+ 
+    if (getaddrinfo(ds, NULL, &hints, &res) != 0)
+      return -1;
+
+    memcpy(&ipAddr,
+	   &((struct sockaddr_in6 *)res->ai_addr)->sin6_addr,  sizeof(ipAddr));
+
 
 #if defined (CPU) && CPU == PPC603
         lookupResult = hostGetByAddr(ipAddr.s_addr, hName);

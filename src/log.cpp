@@ -61,10 +61,6 @@ static int default_logfilter[] = LOG_DEFAULT_ORIGINAL;
 
 #undef   LOG_INDENT
 
-#ifdef _THREADS
-SnmpSynchronized mutex;
-#endif
-
 /*---------------------------- log profiles ---------------------------*/
 
 #if defined(WITH_LOG_PROFILES)
@@ -107,11 +103,6 @@ void LogEntry::init(void)
 #if defined (CPU) && CPU == PPC603
 	int pid = taskIdSelf();
 #else
-#ifdef __APPLE__
-        uint64_t pid;
-        pthread_threadid_np(NULL, &pid);
-	add_integer(static_cast<long>(pid));
-#else
 #ifdef POSIX_THREADS
         pthread_t pid = pthread_self();
 	if (sizeof(pthread_t) == sizeof(long))
@@ -132,7 +123,6 @@ void LogEntry::init(void)
         int pid = 0;
 #endif
 	add_integer(pid);
-#endif
 #endif
 #endif
 
@@ -409,7 +399,6 @@ LogEntry* AgentLogImpl::create_log_entry(const char * const name, unsigned char 
  */
 AgentLog& AgentLogImpl::operator+=(const LogEntry* log)
 {
-  SnmpSynchronize lm(mutex);
 	fprintf(logfile, "%s\n", log->get_value());
 
 	// check if critical error
@@ -428,10 +417,10 @@ AgentLog& AgentLogImpl::operator+=(const LogEntry* log)
 // define the default logs
 
 AgentLog* DefaultLog::instance = 0;
-//LogEntry* DefaultLog::entry = 0;
-//#ifdef _THREADS
-//SnmpSynchronized DefaultLog::mutex;
-//#endif
+LogEntry* DefaultLog::entry = 0;
+#ifdef _THREADS
+SnmpSynchronized DefaultLog::mutex;
+#endif
 
 void DefaultLog::cleanup()
 {
@@ -439,21 +428,6 @@ void DefaultLog::cleanup()
   if (instance) delete instance;
   instance = 0;
   unlock();
-}
-
-
-void DefaultLog::unlock()
-{
-#ifdef _THREADS
-  mutex.unlock();
-#endif
-}
-
-void DefaultLog::lock()
-{
-#ifdef _THREADS
-  mutex.lock();
-#endif
 }
 
 AgentLog* DefaultLog::init_ts(AgentLog* logger)

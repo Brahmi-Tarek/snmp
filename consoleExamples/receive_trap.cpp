@@ -45,13 +45,9 @@ void callback( int reason, Snmp *snmp, Pdu &pdu, SnmpTarget &target, void *cd)
   target.get_address(addr);
   UdpAddress from(addr);
 
-  if(reason != -7)
-    cout << "reason: " << reason << " "
-       << "msg: " << snmp->error_msg(reason) << " "
-       << "from: " << from.get_printable() << " ";
-  else
-    cout << "from: " << from.get_printable() << " ";
-
+  cout << "reason: " << reason << endl
+       << "msg: " << snmp->error_msg(reason) << endl
+       << "from: " << from.get_printable() << endl;
 
   pdu_error = pdu.get_error_status();
   if (pdu_error){
@@ -60,19 +56,19 @@ void callback( int reason, Snmp *snmp, Pdu &pdu, SnmpTarget &target, void *cd)
   }
   Oid id;
   pdu.get_notify_id(id);
-  cout << "ID:  " << id.get_printable() << " ";
-  //cout << "Type:" << pdu.get_type() << endl;
+  cout << "ID:  " << id.get_printable() << endl;
+  cout << "Type:" << pdu.get_type() << endl;
 
   for (int i=0; i<pdu.get_vb_count(); i++)
   {
     pdu.get_vb(nextVb, i);
 
-    if(i==6 || i==7 || i==9||i==12)cout << /*"Oid: " << nextVb.get_printable_oid() << ": "
-	 << "Val: " <<*/  nextVb.get_printable_value() << " ";
+    cout << "Oid: " << nextVb.get_printable_oid() << endl
+	 << "Val: " <<  nextVb.get_printable_value() << endl;
   }
   if (pdu.get_type() == sNMP_PDU_INFORM) {
-      //cout << "pdu type: " << pdu.get_type() << endl;
-      //cout << "sending response to inform: " << endl;
+      cout << "pdu type: " << pdu.get_type() << endl;
+      cout << "sending response to inform: " << endl;
       nextVb.set_value("This is the response.");
       pdu.set_vb(nextVb, 0);
       snmp->response(pdu, target);
@@ -87,16 +83,6 @@ int main(int argc, char **argv)
     trap_port = 10162; // no need to be root
   else
     trap_port = atoi(argv[1]);
-
-#if !defined(_NO_LOGGING) && !defined(WITH_LOG_PROFILES)
-  // Set filter for logging
-  DefaultLog::log()->set_filter(ERROR_LOG, 7);
-  DefaultLog::log()->set_filter(WARNING_LOG, 7);
-  DefaultLog::log()->set_filter(EVENT_LOG, 0);
-  DefaultLog::log()->set_filter(INFO_LOG, 0);
-  DefaultLog::log()->set_filter(DEBUG_LOG, 0);
-#endif
-
 
   //----------[ create a SNMP++ session ]-----------------------------------
   int status; 

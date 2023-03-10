@@ -4,7 +4,7 @@
   _##
   _##  SNMP++ v3.3
   _##  -----------------------------------------------
-  _##  Copyright (c) 2001-2011 Jochen Katz, Frank Fock
+  _##  Copyright (c) 2001-2013 Jochen Katz, Frank Fock
   _##
   _##  This software is based on SNMP++2.6 from Hewlett Packard:
   _##  
@@ -22,8 +22,6 @@
   _##  "AS-IS" without warranty of any kind, either express or implied. User 
   _##  hereby grants a royalty-free license to any and all derivatives based
   _##  upon this software code base. 
-  _##  
-  _##  Stuttgart, Germany, Mon Apr  4 01:00:44     2011 
   _##  
   _##########################################################################*/
 
@@ -55,6 +53,10 @@
 #define DLLOPT
 #define DLLOPT_TEMPL
 #endif
+#endif
+
+#ifndef ON
+#define ON 1
 #endif
 
 /*
@@ -114,7 +116,7 @@
 
 // define _NO_LOGGING if you do not want any logging output 
 // (increases performance drastically and minimizes memory consumption)
-#if 1
+#if 0
 #undef _NO_LOGGING
 #else
 #define _NO_LOGGING

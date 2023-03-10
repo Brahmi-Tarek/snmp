@@ -378,7 +378,7 @@ int CNotifyEventQueue::AddEntry(Snmp *snmp,
 #endif
 
       // bind the socket
-      if (::bind(m_notify_fd, (struct sockaddr *) &mgr_addr,
+      if (bind(m_notify_fd, (struct sockaddr *) &mgr_addr,
                sizeof(mgr_addr)) < 0)
       {
 #ifdef WIN32
@@ -489,8 +489,12 @@ int CNotifyEventQueue::AddEntry(Snmp *snmp,
           addrstr.set_len(addrstr.len() - 1);
       }
 
-      if (inet_pton(AF_INET6, addrstr.get_printable(),
-                    &mgr_addr.sin6_addr) < 0)
+      struct addrinfo hints, *res;
+
+      memset(&hints, 0, sizeof(hints));
+      hints.ai_family = AF_INET6;
+
+      if (getaddrinfo(addrstr.get_printable(), NULL, &hints, &res) == 0)
       {
 	LOG_BEGIN(loggerModuleName, ERROR_LOG | 1);
         LOG("Notify transport: inet_pton returns (errno) (str)");
@@ -501,12 +505,14 @@ int CNotifyEventQueue::AddEntry(Snmp *snmp,
         return SNMP_CLASS_INVALID_ADDRESS;
       }
 
+      memcpy(&mgr_addr, res->ai_addr, res->ai_addrlen);
+
       mgr_addr.sin6_family = AF_INET6;
       mgr_addr.sin6_port = htons(m_notify_addr.get_port());
       mgr_addr.sin6_scope_id = scope;
 
       // bind the socket
-      if (::bind(m_notify_fd, (struct sockaddr *) &mgr_addr,
+      if (bind(m_notify_fd, (struct sockaddr *) &mgr_addr,
                sizeof(mgr_addr)) < 0)
       {
 #ifdef WIN32

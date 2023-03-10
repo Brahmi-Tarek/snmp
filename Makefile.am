@@ -26,7 +26,7 @@
   ##########################################################################*
 
 AM_CPPFLAGS = -I$(abs_top_srcdir) -I$(abs_top_srcdir)/include $(PTHREAD_CFLAGS) @CLIBFLAGS@
-SUBDIRS = include src consoleExamples
+SUBDIRS = include src 
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = snmp++-3.pc.in libsnmp.h CHANGES.snmp++v3 readme.txt README.v3 README.autoconf doc_config 
