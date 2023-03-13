@@ -84,7 +84,7 @@
 #if 0
 #define HAVE_LIBDES 1
 #endif
-#if 1
+#if 0
 #define HAVE_PTHREAD 1
 #endif
 

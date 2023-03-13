@@ -11,10 +11,10 @@
 #define ENABLE_THREADS 1
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
-#define HAVE_ARPA_INET_H 1
+/* #undef HAVE_ARPA_INET_H */
 
 /* Define to 1 if you have the `clock_gettime' function. */
-#define HAVE_CLOCK_GETTIME 1
+/* #undef HAVE_CLOCK_GETTIME */
 
 /* Define to 1 if you have the <ctype.h> header file. */
 #define HAVE_CTYPE_H 1
@@ -24,7 +24,7 @@
 /* #undef HAVE_DECL_GETADDRINFO */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 1
+/* #undef HAVE_DLFCN_H */
 
 /* Define to 1 if you have the <errno.h> header file. */
 #define HAVE_ERRNO_H 1
@@ -39,16 +39,16 @@
 #define HAVE_GETHOSTBYADDR 1
 
 /* Define to 1 if you have the `gethostbyaddr_r' function. */
-#define HAVE_GETHOSTBYADDR_R 1
+/* #undef HAVE_GETHOSTBYADDR_R */
 
 /* Define to 1 if you have the `gethostbyname' function. */
 #define HAVE_GETHOSTBYNAME 1
 
 /* Define to 1 if you have the `gethostbyname2' function. */
-#define HAVE_GETHOSTBYNAME2 1
+/* #undef HAVE_GETHOSTBYNAME2 */
 
 /* Define to 1 if you have the `gethostbyname_r' function. */
-#define HAVE_GETHOSTBYNAME_R 1
+/* #undef HAVE_GETHOSTBYNAME_R */
 
 /* Define to 1 if you have the `gethostname' function. */
 #define HAVE_GETHOSTNAME 1
@@ -63,7 +63,7 @@
 #define HAVE_HTONL 1
 
 /* Define to 1 if you have the `inet_aton' function. */
-#define HAVE_INET_ATON 1
+/* #undef HAVE_INET_ATON */
 
 /* Define to 1 if you have the `inet_ntoa' function. */
 #define HAVE_INET_NTOA 1
@@ -78,7 +78,7 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the <io.h> header file. */
-/* #undef HAVE_IO_H */
+#define HAVE_IO_H 1
 
 /* Define to 1 if you have the `isdigit' function. */
 #define HAVE_ISDIGIT 1
@@ -87,16 +87,16 @@
 /* #undef HAVE_LIBDES_H */
 
 /* Define to 1 if you have the `ws2_32' library (-lws2_32). */
-/* #undef HAVE_LIBWS2_32 */
+#define HAVE_LIBWS2_32 1
 
 /* Define to 1 if you have the `wsock32' library (-lwsock32). */
-/* #undef HAVE_LIBWSOCK32 */
+#define HAVE_LIBWSOCK32 1
 
 /* Define to 1 if you have the <limits.h> header file. */
 #define HAVE_LIMITS_H 1
 
 /* Define to 1 if you have the `localtime_r' function. */
-#define HAVE_LOCALTIME_R 1
+/* #undef HAVE_LOCALTIME_R */
 
 /* Define to 1 if you have the `malloc' function. */
 #define HAVE_MALLOC 1
@@ -114,22 +114,22 @@
 #define HAVE_NAMESPACE_STD /**/
 
 /* Define to 1 if you have the <netdb.h> header file. */
-#define HAVE_NETDB_H 1
+/* #undef HAVE_NETDB_H */
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
-#define HAVE_NETINET_IN_H 1
+/* #undef HAVE_NETINET_IN_H */
 
 /* Define to 1 if you have the `poll' function. */
-#define HAVE_POLL 1
+/* #undef HAVE_POLL */
 
 /* Define to 1 if you have the <poll.h> header file. */
-#define HAVE_POLL_H 1
+/* #undef HAVE_POLL_H */
 
 /* Define to 1 if you have the <process.h> header file. */
-/* #undef HAVE_PROCESS_H */
+#define HAVE_PROCESS_H 1
 
 /* Define if you have POSIX threads libraries and header files. */
-#define HAVE_PTHREAD 1
+/* #undef HAVE_PTHREAD */
 
 /* Define to 1 if you have the `realloc' function. */
 #define HAVE_REALLOC 1
@@ -174,7 +174,7 @@
 #define HAVE_STRERROR 1
 
 /* Define to 1 if you have the `stricmp' function. */
-/* #undef HAVE_STRICMP */
+#define HAVE_STRICMP 1
 
 /* Define to 1 if you have the <strings.h> header file. */
 #define HAVE_STRINGS_H 1
@@ -198,10 +198,10 @@
 #define HAVE_SYS_PARAM_H 1
 
 /* Define to 1 if you have the <sys/select.h> header file. */
-#define HAVE_SYS_SELECT_H 1
+/* #undef HAVE_SYS_SELECT_H */
 
 /* Define to 1 if you have the <sys/socket.h> header file. */
-#define HAVE_SYS_SOCKET_H 1
+/* #undef HAVE_SYS_SOCKET_H */
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -228,16 +228,16 @@
 #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have the <winsock2.h> header file. */
-/* #undef HAVE_WINSOCK2_H */
+#define HAVE_WINSOCK2_H 1
 
 /* Define to 1 if you have the <winsock.h> header file. */
-/* #undef HAVE_WINSOCK_H */
+#define HAVE_WINSOCK_H 1
 
 /* Define to 1 if you have the <ws2tcpip.h> header file. */
-/* #undef HAVE_WS2TCPIP_H */
+#define HAVE_WS2TCPIP_H 1
 
 /* Define to 1 if you have the <wspiapi.h> header file. */
-/* #undef HAVE_WSPIAPI_H */
+#define HAVE_WSPIAPI_H 1
 
 /* _XOPEN_SOURCE $HAVE_XOPEN_SOURCE */
 #define HAVE_XOPEN_SOURCE 
@@ -246,14 +246,14 @@
 #define HAVE__BOOL 1
 
 /* Define to 1 if you have the `_getpid' function. */
-/* #undef HAVE__GETPID */
+#define HAVE__GETPID 1
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #define LT_OBJDIR ".libs/"
 
 /* Define to be the name of the operating system. */
-#define OS_TYPE "linux-gnu"
+#define OS_TYPE "mingw32"
 
 /* Name of package */
 #define PACKAGE "snmp++"
@@ -284,7 +284,7 @@
 #define SNMP_PP_IPv6 1
 
 /* Determine what socket length (socklen_t) data type is */
-#define SNMP_SOCKLEN_T socklen_t
+#define SNMP_SOCKLEN_T 
 
 /* Define if ISO C++ 0x header files are present. */
 #define STDCXX_0X_HEADERS /**/
@@ -323,7 +323,7 @@
 /* #undef _UINT8_T */
 
 /* Define to `int' if <sys/types.h> doesn't define. */
-/* #undef gid_t */
+#define gid_t int
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
@@ -360,7 +360,7 @@
 /* #undef ssize_t */
 
 /* Define to `int' if <sys/types.h> doesn't define. */
-/* #undef uid_t */
+#define uid_t int
 
 /* Define to the type of an unsigned integer type of width exactly 16 bits if
    such a type exists and the standard includes do not define it. */

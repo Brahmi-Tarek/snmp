@@ -106,51 +106,51 @@
 #include <sys/timeb.h> // and _ftime
 #endif
 
-#if 0
+#if 1
 # include <winsock2.h>
-# if 0
+# if 1
 #  include <ws2tcpip.h>
 # endif
-# if 0
+# if 1
 #  include <wspiapi.h>
 # endif
-#elif 0
+#elif 1
   /* IIRC winsock.h must be included before windows.h */
 # include <winsock.h>
 #else
-# if 1
+# if 0
 #  include <netdb.h>
 # endif
-# if 1
+# if 0
 #  include <sys/socket.h>
 # endif
-# if 1
+# if 0
 #  include <arpa/inet.h>
 # endif
-# if 1
+# if 0
 #  include <netinet/in.h>
 # endif
 #endif
 
-#if 1
+#if 0
 # include <poll.h>
 #endif
-#if 1
+#if 0
 # include <sys/select.h>
 #endif
 
 #ifdef _WIN32
-# if 0
+# if 1
 #  include <io.h>
 # endif
-# if 0
+# if 1
 #  include <process.h>
 # endif
 # include <windows.h>
 #endif
 
 #if ! 1
-# if 0
+# if 1
 #  define strcasecmp stricmp
 # else
 extern "C" int strcasecmp(const char *s1, const char *s2);
@@ -158,7 +158,7 @@ extern "C" int strcasecmp(const char *s1, const char *s2);
 #endif
 
 #if ! 1
-# if 0
+# if 1
 #  define getpid _getpid
 # endif
 #endif

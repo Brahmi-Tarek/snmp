@@ -1,4 +1,4 @@
-prefix=/usr/local/snmp++-amd64-3.3.9
+prefix=/usr/local/snmp++-win64-3.3.9
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
@@ -9,5 +9,5 @@ Version: 3.3.9
 Description: SNMP C++ framework version 3
 Requires:
 Libs: -L${libdir} -lsnmp++
-Libs.private:  -L/usr/local/openssl-win64-1.0.2i/lib -lssl -lws2_32 -lgdi32 -lcrypt32 -lcrypto
+Libs.private: -lws2_32 -lwsock32  -L/usr/local/openssl-win64-1.0.2i/lib -lssl -lws2_32 -lgdi32 -lcrypt32 -lcrypto
 Cflags: -I${includedir}
